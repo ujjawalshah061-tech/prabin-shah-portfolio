@@ -10,6 +10,12 @@ import {
   Layers,
   FileSpreadsheet,
   Globe2,
+  Award,
+  Users,
+  Compass,
+  Coins,
+  Megaphone,
+  HeartHandshake,
 } from "lucide-react";
 
 interface WorkExperience {
@@ -20,6 +26,14 @@ interface WorkExperience {
   description: string;
   isCurrent?: boolean;
   link?: string;
+  icon: React.ElementType;
+}
+
+interface LeadershipRole {
+  year: string;
+  role: string;
+  organization: string;
+  scope: string;
   icon: React.ElementType;
 }
 
@@ -61,6 +75,51 @@ const workList: WorkExperience[] = [
     description:
       "Delivered freelance structural CAD drawings, civil component drafting, and BOQ layout vetting.",
     icon: DraftingCompass,
+  },
+];
+
+const leadershipList: LeadershipRole[] = [
+  {
+    year: "2024 / 2025",
+    role: "President",
+    organization: "Kathmandu University Civil Engineering Club (KUCEC)",
+    scope: "Departmental Student Leadership & Conclaves",
+    icon: Award,
+  },
+  {
+    year: "2023 / 2024",
+    role: "Coordinator",
+    organization: "Kathmandu University Youth Red Cross Circle (KUYRCC)",
+    scope: "Humanitarian & Blood Donation Drives",
+    icon: HeartHandshake,
+  },
+  {
+    year: "2024",
+    role: "Vice Coordinator",
+    organization: "Sankalpa’24 National Engineering Event",
+    scope: "Technical Symposia & Inter-University Coordination",
+    icon: Megaphone,
+  },
+  {
+    year: "2022 / 2023",
+    role: "Executive Member",
+    organization: "Kathmandu University Civil Engineering Club (KUCEC)",
+    scope: "Student Workshops & Technical Field Visits",
+    icon: Users,
+  },
+  {
+    year: "2023 / 2024",
+    role: "Treasurer",
+    organization: "Kathmandu University Indoor Games Club (KUIGC)",
+    scope: "Financial Budgeting, Auditing & Sports Logistics",
+    icon: Coins,
+  },
+  {
+    year: "Conference",
+    role: "Technical Volunteer",
+    organization: "International Conference Surung-I",
+    scope: "Tunnels & Underground Structures Symposia",
+    icon: Compass,
   },
 ];
 
@@ -185,6 +244,39 @@ const Experience: React.FC = () => {
               <span>Contact Me</span>
             </a>
           </div>
+        </div>
+      </div>
+
+      {/* Full-Width Bottom Section: Institutional Leadership & Responsibilities */}
+      <div className="exp-leadership-wrapper">
+        <div className="exp-leadership-header">
+          <span className="pane-eyebrow">COMMUNITY & ORGANIZATIONAL IMPACT</span>
+          <h2 className="pane-title">
+            Leadership & <span>Additional Experience</span>
+          </h2>
+          <p className="exp-leadership-sub">
+            Elected roles, departmental coordination, and international conference volunteering during tenure at Kathmandu University.
+          </p>
+        </div>
+
+        <div className="exp-leadership-grid">
+          {leadershipList.map((item, lIdx) => {
+            const LeadIcon = item.icon;
+            return (
+              <div className="exp-leadership-card" key={lIdx}>
+                <div className="lead-card-head">
+                  <div className="lead-icon-circle">
+                    <LeadIcon size={18} />
+                  </div>
+                  <span className="lead-year-pill">{item.year}</span>
+                </div>
+
+                <h3 className="lead-role-head">{item.role}</h3>
+                <h4 className="lead-org-name">{item.organization}</h4>
+                <p className="lead-scope-text">{item.scope}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

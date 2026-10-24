@@ -11,6 +11,7 @@ interface GalleryItem {
   caption: string;
   image: string;
   span: string;
+  imgPos: string;
 }
 
 const galleryData: GalleryItem[] = [
@@ -21,6 +22,7 @@ const galleryData: GalleryItem[] = [
     caption: "Conducting geodetic alignment and topographic leveling for roadway profiling and structural grid setting at Kathmandu University.",
     image: surveyImg,
     span: "col-span-1 row-span-2",
+    imgPos: "pos-survey",
   },
   {
     id: 2,
@@ -29,6 +31,7 @@ const galleryData: GalleryItem[] = [
     caption: "Operating core drilling apparatus for cylindrical rock specimen sampling to conduct uniaxial compressive strength (UCS) trials.",
     image: rockDrillImg,
     span: "col-span-1 row-span-1",
+    imgPos: "pos-rock",
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ const galleryData: GalleryItem[] = [
     caption: "Analyzing soil index properties, compaction parameters, and aggregate mix consistency in the laboratory.",
     image: soilLabImg,
     span: "col-span-1 row-span-1",
+    imgPos: "pos-soil",
   },
   {
     id: 4,
@@ -45,6 +49,7 @@ const galleryData: GalleryItem[] = [
     caption: "Hands-on assembly of column-beam reinforcement cage models and structural geometry during semester project work.",
     image: structuralImg,
     span: "col-span-2 row-span-1",
+    imgPos: "pos-rebar",
   },
 ];
 
@@ -68,7 +73,11 @@ const EngineeringGallery: React.FC = () => {
           {galleryData.map((item) => (
             <div key={item.id} className={`gallery-card ${item.span}`}>
               <div className="gallery-image-wrapper">
-                <img src={item.image} alt={item.title} className="gallery-img" />
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={`gallery-img ${item.imgPos}`}
+                />
                 <div className="gallery-overlay-gradient"></div>
               </div>
 

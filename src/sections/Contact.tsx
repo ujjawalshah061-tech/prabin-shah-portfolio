@@ -104,7 +104,7 @@ const Contact: React.FC = () => {
 
           <div className="map-action-buttons">
             <a
-              href="https://maps.google.com/?q=Lalitpur,Nepal"
+              href="https://maps.app.goo.gl/wyBpvtVPm2QKJYzZ8?g_st=aw"
               target="_blank"
               rel="noreferrer"
               className="btn-map-action"

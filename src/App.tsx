@@ -7,6 +7,7 @@ import About from "./sections/About";
 import Milestones from "./sections/Milestones";
 import EngineeringGallery from "./sections/EngineeringGallery";
 import Experience from "./sections/Experience";
+import Project from "./sections/Project";
 import Contact from "./sections/Contact";
 
 // Smooth scroll to top on normal route switch, ya hash links par scroll
@@ -41,7 +42,19 @@ const HomePage: React.FC = () => {
 
 function AppContent() {
   const location = useLocation();
-  const showFooter = location.pathname !== "/contact";
+  
+  // Jin pages par Footer nahi chahiye unke routes ki list
+  const hideFooterRoutes = [
+    "/contact",
+    "/experience",
+    "/service",
+    "/services",
+    "/project",
+    "/projects",
+  ];
+
+  // Agar current path list me hai toh Footer hide rahega
+  const showFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
     <div className="portfolio-app-root">
@@ -55,6 +68,8 @@ function AppContent() {
         {/* Direct routes */}
         <Route path="/about" element={<About />} />
         <Route path="/experience" element={<Experience />} />
+        <Route path="/project" element={<Project />} />
+        <Route path="/projects" element={<Project />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
 

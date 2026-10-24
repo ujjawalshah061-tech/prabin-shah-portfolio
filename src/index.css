@@ -2698,11 +2698,11 @@ body.dark-mode .edu-status-pill {
   }
 }
 /* ========================================================
-   ENGINEERING GALLERY BENTO SECTION (POLISHED & HIGH CONTRAST)
+   ENGINEERING GALLERY BENTO SECTION (PERFECTLY FRAMED)
 ======================================================== */
 .gallery-section {
   width: 100%;
-  padding: 100px 40px 110px;
+  padding: 80px 40px 90px;
   background-color: var(--bg-page);
   position: relative;
   transition: background-color 0.3s ease;
@@ -2715,7 +2715,7 @@ body.dark-mode .edu-status-pill {
 
 .gallery-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 44px;
 }
 
 .gallery-eyebrow {
@@ -2725,7 +2725,7 @@ body.dark-mode .edu-status-pill {
   letter-spacing: 2px;
   color: #9333ea;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 body.dark-mode .gallery-eyebrow {
@@ -2733,11 +2733,11 @@ body.dark-mode .gallery-eyebrow {
 }
 
 .gallery-title {
-  font-size: clamp(34px, 4vw, 50px);
+  font-size: clamp(32px, 3.8vw, 48px);
   font-weight: 800;
   color: var(--text-main);
-  letter-spacing: -1.2px;
-  margin-bottom: 14px;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
 }
 
 .gallery-title span {
@@ -2753,11 +2753,11 @@ body.dark-mode .gallery-title span {
 }
 
 .gallery-subtitle {
-  font-size: 16px;
+  font-size: 15.5px;
   color: var(--text-sub);
-  max-width: 650px;
+  max-width: 640px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* 3-Column Bento Grid */
@@ -2765,7 +2765,7 @@ body.dark-mode .gallery-title span {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 290px;
-  gap: 22px;
+  gap: 20px;
 }
 
 .col-span-2 {
@@ -2790,14 +2790,13 @@ body.dark-mode .gallery-title span {
   overflow: hidden;
   border: 1px solid var(--border-card);
   box-shadow: var(--shadow-card);
-  background: var(--bg-card);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #0f172a;
+  transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .gallery-card:hover {
   transform: translateY(-4px);
   border-color: #9333ea;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
 .gallery-image-wrapper {
@@ -2811,34 +2810,53 @@ body.dark-mode .gallery-title span {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
+}
+
+/* Individual Framing Fix for each photo */
+.gallery-img.pos-survey {
+  object-position: center center;
+}
+
+.gallery-img.pos-rock {
+  /* Machine aur body ko focus me rakhega */
+  object-position: center 30%;
+}
+
+.gallery-img.pos-soil {
+  /* Chehra aur bowl dono dikhenge */
+  object-position: center 20%;
+}
+
+.gallery-img.pos-rebar {
+  /* Table par rakhe cage aur haathon ko focus me rakhega */
+  object-position: center 75%;
 }
 
 .gallery-card:hover .gallery-img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
-/* Enhanced 4-Stage Dark Gradient for 100% Text Readability */
+/* Precise Dark Bottom Gradient */
 .gallery-overlay-gradient {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(10, 10, 15, 0.98) 0%,
-    rgba(10, 10, 15, 0.82) 42%,
-    rgba(10, 10, 15, 0.28) 72%,
+    rgba(10, 10, 15, 0.96) 0%,
+    rgba(10, 10, 15, 0.65) 45%,
+    rgba(10, 10, 15, 0.1) 75%,
     transparent 100%
   );
   pointer-events: none;
 }
 
-/* Content Container with Drop-Shadow Protection */
 .gallery-card-content {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 18px 22px 20px;
+  padding: 16px 20px 18px;
   z-index: 5;
   text-align: left;
   display: flex;
@@ -2849,31 +2867,27 @@ body.dark-mode .gallery-title span {
 .gallery-card-tag {
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.4px;
   color: #fbbf24;
   text-transform: uppercase;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .gallery-card-title {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
   line-height: 1.25;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .gallery-card-desc {
-  font-size: 12.5px;
+  font-size: 12px;
   line-height: 1.45;
-  color: #e2e8f0;
+  color: #cbd5e1;
   margin: 0;
   max-width: 95%;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Responsive */
 @media (max-width: 992px) {
   .gallery-bento-grid {
     grid-template-columns: 1fr;
@@ -2885,5 +2899,367 @@ body.dark-mode .gallery-title span {
   .row-span-1 {
     grid-column: span 1;
     grid-row: span 1;
+  }
+}
+/* ========================================================
+   MILESTONES & LEADERSHIP CARDS (ACADEMIC EXCELLENCE)
+======================================================== */
+.milestones-section {
+  width: 100%;
+  padding: 90px 40px 60px;
+  background-color: var(--bg-page);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.milestones-container {
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.milestones-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.milestones-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #9333ea;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+body.dark-mode .milestones-eyebrow {
+  color: #c084fc;
+}
+
+.milestones-title {
+  font-size: clamp(32px, 3.8vw, 48px);
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -1.2px;
+  margin-bottom: 12px;
+}
+
+.milestones-title span {
+  background: linear-gradient(135deg, #9333ea, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .milestones-title span {
+  background: linear-gradient(135deg, #c084fc, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.milestones-subtitle {
+  font-size: 15.5px;
+  color: var(--text-sub);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* 4 Column Cards Layout */
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.milestone-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.milestone-card:hover {
+  transform: translateY(-5px);
+  border-color: #9333ea;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+}
+
+.milestone-img-box {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.milestone-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.milestone-card:hover .milestone-img {
+  transform: scale(1.05);
+}
+
+.milestone-overlay-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 15, 0.75) 0%,
+    rgba(10, 10, 15, 0.2) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.milestone-tag-pill {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #fbbf24;
+  text-transform: uppercase;
+}
+
+.milestone-text-block {
+  padding: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.milestone-card-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.milestone-card-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-sub);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .milestones-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .milestones-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ========================================================
+   PROJECTS PAGE (MINIMALIST, CLEAN & BREATHABLE UI)
+======================================================== */
+.projects-page-section {
+  width: 100%;
+  min-height: 100vh;
+  padding: 120px 40px 90px;
+  background-color: var(--bg-page);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.projects-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projects-page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.clean-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #9333ea;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+body.dark-mode .clean-eyebrow {
+  color: #c084fc;
+}
+
+.clean-page-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -1.2px;
+  margin-bottom: 12px;
+}
+
+.clean-page-title span {
+  background: linear-gradient(135deg, #9333ea, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .clean-page-title span {
+  background: linear-gradient(135deg, #c084fc, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.clean-page-desc {
+  font-size: 15.5px;
+  color: var(--text-sub);
+  max-width: 600px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+/* Tabs */
+.clean-tab-group {
+  display: inline-flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  padding: 5px;
+  border-radius: 999px;
+  gap: 6px;
+  box-shadow: var(--shadow-card);
+}
+
+.clean-tab-btn {
+  padding: 8px 22px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clean-tab-btn:hover {
+  color: var(--text-main);
+}
+
+.clean-tab-btn.active {
+  background: #f59e0b;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+/* 2-Column Minimal Cards */
+.clean-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.clean-project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: left;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.clean-project-card:hover {
+  transform: translateY(-4px);
+  border-color: #9333ea;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.clean-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #9333ea;
+  text-transform: uppercase;
+}
+
+body.dark-mode .clean-badge {
+  color: #c084fc;
+}
+
+.card-serial {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-sub);
+  opacity: 0.6;
+}
+
+.card-main-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.35;
+  margin-bottom: 12px;
+  letter-spacing: -0.4px;
+}
+
+.card-main-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-sub);
+  margin-bottom: 22px;
+  flex-grow: 1;
+}
+
+.card-bottom-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-card);
+}
+
+.minimal-tool-pill {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  color: var(--text-sub);
+}
+
+@media (max-width: 900px) {
+  .clean-projects-grid {
+    grid-template-columns: 1fr;
   }
 }
