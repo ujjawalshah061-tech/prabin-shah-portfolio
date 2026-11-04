@@ -4,13 +4,13 @@ import Navbar from "./components/Navbar";
 import Footer from "./sections/Footer";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Skills from "./sections/Skills";
 import Milestones from "./sections/Milestones";
 import EngineeringGallery from "./sections/EngineeringGallery";
 import Experience from "./sections/Experience";
 import Project from "./sections/Project";
 import Contact from "./sections/Contact";
 
-// Smooth scroll to top on normal route switch, ya hash links par scroll
 function ScrollHandler() {
   const { pathname, hash } = useLocation();
 
@@ -28,12 +28,38 @@ function ScrollHandler() {
   return null;
 }
 
-// Home Page Component: Hero -> About -> Milestones -> Engineering Gallery
+function useScrollReveal() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          } else {
+            entry.target.classList.remove("animate-in");
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+      }
+    );
+
+    const elements = document.querySelectorAll(".reveal-on-scroll");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+}
+
 const HomePage: React.FC = () => {
   return (
     <>
       <Hero />
       <About />
+      <Skills />
       <Milestones />
       <EngineeringGallery />
     </>
@@ -42,8 +68,8 @@ const HomePage: React.FC = () => {
 
 function AppContent() {
   const location = useLocation();
-  
-  // Jin pages par Footer nahi chahiye unke routes ki list
+  useScrollReveal();
+
   const hideFooterRoutes = [
     "/contact",
     "/experience",
@@ -53,7 +79,6 @@ function AppContent() {
     "/projects",
   ];
 
-  // Agar current path list me hai toh Footer hide rahega
   const showFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
@@ -62,10 +87,7 @@ function AppContent() {
       <Navbar />
 
       <Routes>
-        {/* Home page containing Hero, About, Milestones, and Activity Gallery */}
         <Route path="/" element={<HomePage />} />
-        
-        {/* Direct routes */}
         <Route path="/about" element={<About />} />
         <Route path="/experience" element={<Experience />} />
         <Route path="/project" element={<Project />} />

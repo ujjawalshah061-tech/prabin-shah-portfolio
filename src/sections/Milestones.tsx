@@ -51,10 +51,12 @@ const milestoneData: MilestoneItem[] = [
 ];
 
 const Milestones: React.FC = () => {
+  const delays = ["delay-100", "delay-200", "delay-300", "delay-400"];
+
   return (
     <section className="milestones-section" id="milestones">
       <div className="milestones-container">
-        <div className="milestones-header">
+        <div className="milestones-header reveal-on-scroll">
           <span className="milestones-eyebrow">HONORS & LEADERSHIP</span>
           <h2 className="milestones-title">
             Academic & Public <span>Milestones</span>
@@ -65,8 +67,11 @@ const Milestones: React.FC = () => {
         </div>
 
         <div className="milestones-grid">
-          {milestoneData.map((item) => (
-            <div key={item.id} className="milestone-card">
+          {milestoneData.map((item, idx) => (
+            <div 
+              key={item.id} 
+              className={`milestone-card reveal-on-scroll ${delays[idx] || ""}`}
+            >
               <div className="milestone-img-box">
                 <img src={item.image} alt={item.title} className="milestone-img" />
                 <div className="milestone-overlay-shade"></div>

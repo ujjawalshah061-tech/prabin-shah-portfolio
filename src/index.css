@@ -1347,17 +1347,15 @@ body.dark-mode .hero-profile-pic {
 }
 
 /* ========================================================
-   FULL SCREEN PROPORTIONAL EXPERIENCE & SKILLS SECTION
+   EXPERIENCE PAGE & LEADERSHIP (COMPLETE UPDATED STYLING)
 ======================================================== */
 .aashu-exp-section {
   width: 100%;
   min-height: calc(100vh - 80px);
-  padding: 105px 40px 50px;
+  padding: 110px 40px 80px;
   background-color: var(--bg-page) !important;
   position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+  display: block; /* Pure layout ko clean vertical flow deta hai */
   transition: background-color 0.25s ease;
 }
 
@@ -1368,7 +1366,7 @@ body.dark-mode .hero-profile-pic {
   display: grid;
   grid-template-columns: 1.18fr 0.82fr;
   gap: 52px;
-  align-items: stretch;
+  align-items: start;
 }
 
 /* HEADINGS */
@@ -1395,7 +1393,7 @@ body.dark-mode .pane-eyebrow {
   letter-spacing: -0.8px;
 }
 
-/* LEFT COLUMN: 2x2 EXPANDED WORK CARDS */
+/* LEFT COLUMN: 2x2 WORK CARDS */
 .aashu-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1411,6 +1409,7 @@ body.dark-mode .pane-eyebrow {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: left;
   transition: all 0.28s ease;
   box-shadow: var(--shadow-card);
 }
@@ -1504,7 +1503,7 @@ body.dark-mode .card-cat-label {
   margin: 0;
 }
 
-/* RIGHT COLUMN: EXPANDED SKILLS ARSENAL */
+/* RIGHT COLUMN: TECHNICAL ARSENAL STACK */
 .skills-arsenal-stack {
   display: flex;
   flex-direction: column;
@@ -1517,6 +1516,7 @@ body.dark-mode .card-cat-label {
   border: 1px solid var(--border-card);
   border-radius: 22px;
   padding: 24px 26px;
+  text-align: left;
   box-shadow: var(--shadow-card);
   transition: all 0.25s ease;
 }
@@ -1595,7 +1595,7 @@ body.dark-mode .card-cat-label {
   transform: translateY(-2px);
 }
 
-/* BIGGER ACTION BUTTONS */
+/* CTA BUTTONS */
 .aashu-cta-buttons {
   display: flex;
   align-items: center;
@@ -1643,6 +1643,175 @@ body.dark-mode .btn-aashu-resume {
 .btn-aashu-contact:hover {
   transform: translateY(-2px);
   opacity: 0.95;
+}
+
+/* ========================================================
+   BOTTOM: EDITORIAL LEADERSHIP REGISTRY TABLE
+======================================================== */
+.lead-registry-wrap {
+  width: 100%;
+  max-width: 1540px;
+  margin: 90px auto 0;
+  padding-top: 60px;
+  border-top: 1px solid var(--border-card);
+  text-align: left;
+}
+
+.lead-registry-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.lead-registry-header .pane-title span {
+  background: linear-gradient(135deg, #9333ea, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .lead-registry-header .pane-title span {
+  background: linear-gradient(135deg, #c084fc, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead-registry-sub {
+  font-size: 15px;
+  color: var(--text-sub);
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Elegant Table Row Grid */
+.lead-registry-table {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.lead-row {
+  display: grid;
+  grid-template-columns: 180px 1.4fr 1.6fr 40px;
+  align-items: center;
+  padding: 22px 30px;
+  border-bottom: 1px solid var(--border-card);
+  transition: all 0.22s ease;
+  position: relative;
+}
+
+.lead-row:last-child {
+  border-bottom: none;
+}
+
+.lead-row:hover {
+  background: var(--bg-subtle);
+  transform: translateX(4px);
+}
+
+.lead-col-period {
+  display: flex;
+  align-items: center;
+}
+
+.lead-period-pill {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.22);
+  padding: 5px 14px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.lead-col-role {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-right: 20px;
+}
+
+.lead-main-role {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+}
+
+.lead-main-entity {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #9333ea;
+}
+
+body.dark-mode .lead-main-entity {
+  color: #c084fc;
+}
+
+.lead-col-domain {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-sub);
+  padding-right: 20px;
+}
+
+.lead-col-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--text-sub);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+}
+
+.lead-row:hover .lead-col-action {
+  opacity: 1;
+  color: #f59e0b;
+  transform: translate(2px, -2px);
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1200px) {
+  .aashu-exp-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .lead-row {
+    grid-template-columns: 140px 1fr 1fr;
+  }
+  .lead-col-action {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .aashu-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .lead-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 18px 20px;
+  }
+  .lead-col-period {
+    margin-bottom: 4px;
+  }
+  .aashu-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-aashu-resume,
+  .btn-aashu-contact {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ========================================================
@@ -3263,3 +3432,498 @@ body.dark-mode .clean-badge {
     grid-template-columns: 1fr;
   }
 }
+/* ========================================================
+   HOME SKILLS SECTION (COMPACT 3-COLUMN MODERN GRID)
+======================================================== */
+.home-skills-section {
+  width: 100%;
+  padding: 80px 40px 90px;
+  background-color: var(--bg-page);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.home-skills-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.home-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.home-skills-section .arsenal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 26px 24px;
+  text-align: left;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-skills-section .arsenal-card:hover {
+  transform: translateY(-4px);
+  border-color: #9333ea;
+  box-shadow: 0 16px 32px rgba(147, 51, 234, 0.12);
+}
+
+.home-skills-section .arsenal-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.home-skills-section .arsenal-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.home-skills-section .accent-orange .arsenal-icon-wrap {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.home-skills-section .accent-purple .arsenal-icon-wrap {
+  background: rgba(147, 51, 234, 0.12);
+  color: #9333ea;
+}
+
+body.dark-mode .home-skills-section .accent-purple .arsenal-icon-wrap {
+  color: #c084fc;
+}
+
+.home-skills-section .accent-green .arsenal-icon-wrap {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+
+.home-skills-section .arsenal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.home-skills-section .arsenal-subtitle {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.home-skills-section .arsenal-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.home-skills-section .arsenal-pill {
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.home-skills-section .arsenal-pill:hover {
+  background: #f59e0b;
+  color: #ffffff;
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+/* ========================================================
+   CLEAN EXPERIENCE PAGE (CENTERED & PROPORTIONATE)
+======================================================== */
+.aashu-exp-section {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  padding: 110px 40px 90px;
+  background-color: var(--bg-page) !important;
+  position: relative;
+  display: block;
+  transition: background-color 0.25s ease;
+}
+
+.aashu-exp-single-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.center-align {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.pane-subtitle-desc {
+  font-size: 15.5px;
+  color: var(--text-sub);
+  max-width: 620px;
+  margin: 10px auto 0;
+  line-height: 1.6;
+}
+
+/* 2x2 Work Cards Grid */
+.aashu-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.aashu-work-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 22px;
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.aashu-work-card:hover {
+  transform: translateY(-4px);
+  border-color: #9333ea;
+  box-shadow: 0 18px 36px rgba(147, 51, 234, 0.12);
+}
+
+.aashu-work-card.current-card {
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+.card-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.card-logo-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  display: grid;
+  place-items: center;
+}
+
+.card-year-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  background: var(--bg-subtle);
+  color: var(--text-sub);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-card);
+}
+
+.current-card .card-year-badge {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.card-cat-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  color: #9333ea;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+body.dark-mode .card-cat-label {
+  color: #c084fc;
+}
+
+.card-company-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.card-company-title a {
+  color: var(--text-sub);
+  display: inline-flex;
+}
+
+.card-company-title a:hover {
+  color: #f59e0b;
+}
+
+.card-role-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f59e0b;
+  margin: 4px 0 10px;
+}
+
+.card-desc-body {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-sub);
+  margin: 0;
+}
+
+/* Buttons Centered */
+.center-align-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 36px auto 0;
+}
+
+/* ========================================================
+   BOTTOM: REFINED EDITORIAL LEADERSHIP REGISTRY
+======================================================== */
+.lead-registry-wrap {
+  width: 100%;
+  max-width: 1280px;
+  margin: 80px auto 0;
+  padding-top: 50px;
+  border-top: 1px solid var(--border-card);
+  text-align: left;
+}
+
+.lead-registry-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.lead-registry-header .pane-title span {
+  background: linear-gradient(135deg, #9333ea, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.dark-mode .lead-registry-header .pane-title span {
+  background: linear-gradient(135deg, #c084fc, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lead-registry-sub {
+  font-size: 15px;
+  color: var(--text-sub);
+  max-width: 640px;
+  margin: 8px auto 0;
+  line-height: 1.6;
+}
+
+.lead-registry-table {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.lead-row {
+  display: grid;
+  grid-template-columns: 170px 1.4fr 1.6fr 36px;
+  align-items: center;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border-card);
+  transition: all 0.2s ease;
+}
+
+.lead-row:last-child {
+  border-bottom: none;
+}
+
+.lead-row:hover {
+  background: var(--bg-subtle);
+  transform: translateX(4px);
+}
+
+.lead-col-period {
+  display: flex;
+  align-items: center;
+}
+
+.lead-period-pill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 4px 12px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.lead-col-role {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-right: 18px;
+}
+
+.lead-main-role {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.lead-main-entity {
+  font-size: 13px;
+  font-weight: 600;
+  color: #9333ea;
+}
+
+body.dark-mode .lead-main-entity {
+  color: #c084fc;
+}
+
+.lead-col-domain {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-sub);
+  padding-right: 18px;
+}
+
+.lead-col-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--text-sub);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+}
+
+.lead-row:hover .lead-col-action {
+  opacity: 1;
+  color: #f59e0b;
+  transform: translate(2px, -2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .home-skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .lead-row {
+    grid-template-columns: 140px 1fr 1fr;
+  }
+  .lead-col-action {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .aashu-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .lead-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px 20px;
+  }
+}
+/* About Section Text - Clean & Solid Dark Contrast */
+.about-subheading {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-main) !important;
+  margin-bottom: 18px;
+  line-height: 1.3;
+}
+
+.about-paragraphs p {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--text-sub) !important;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Light mode me deep dark slate color */
+body.light-mode .about-subheading {
+  color: #020617 !important;
+}
+
+body.light-mode .about-paragraphs p {
+  color: #1e293b !important;
+}
+
+/* Dark mode me soft readable text */
+body.dark-mode .about-subheading {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .about-paragraphs p {
+  color: #cbd5e1 !important;
+}
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(35px) scale(0.98);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+/* ========================================================
+   SAFE & SMOOTH SCROLL ANIMATION (NO BLANK SCREEN BUG)
+======================================================== */
+@keyframes slideUpSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Default state me opacity 1 rahegi taaki content kabhi gayab na ho */
+.reveal-on-scroll {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Screen par aate waqt slide up play hoga */
+.reveal-on-scroll.animate-in {
+  animation: slideUpSmooth 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Delay helpers */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }

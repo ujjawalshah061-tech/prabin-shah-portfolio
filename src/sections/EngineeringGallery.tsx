@@ -54,11 +54,13 @@ const galleryData: GalleryItem[] = [
 ];
 
 const EngineeringGallery: React.FC = () => {
+  const delays = ["delay-100", "delay-200", "delay-300", "delay-400"];
+
   return (
     <section className="gallery-section" id="gallery">
       <div className="gallery-container">
         {/* Section Header */}
-        <div className="gallery-header">
+        <div className="gallery-header reveal-on-scroll">
           <span className="gallery-eyebrow">FIELD & LABORATORY ARCHIVE</span>
           <h2 className="gallery-title">
             Engineering in <span>Action</span>
@@ -70,8 +72,11 @@ const EngineeringGallery: React.FC = () => {
 
         {/* Bento Grid */}
         <div className="gallery-bento-grid">
-          {galleryData.map((item) => (
-            <div key={item.id} className={`gallery-card ${item.span}`}>
+          {galleryData.map((item, idx) => (
+            <div 
+              key={item.id} 
+              className={`gallery-card ${item.span} reveal-on-scroll ${delays[idx] || ""}`}
+            >
               <div className="gallery-image-wrapper">
                 <img
                   src={item.image}
