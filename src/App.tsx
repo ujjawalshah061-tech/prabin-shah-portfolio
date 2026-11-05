@@ -28,6 +28,7 @@ function ScrollHandler() {
   return null;
 }
 
+/** Reveals `.reveal-on-scroll` elements once as they enter the viewport. */
 function useScrollReveal() {
   const location = useLocation();
 
@@ -37,52 +38,70 @@ function useScrollReveal() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("animate-in");
-          } else {
-            entry.target.classList.remove("animate-in");
+            observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.05,
-      }
+      { threshold: 0.08, rootMargin: "0px 0px -6% 0px" }
     );
-
-    const elements = document.querySelectorAll(".reveal-on-scroll");
-    elements.forEach((el) => observer.observe(el));
-
+    document.querySelectorAll(".reveal-on-scroll").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [location.pathname]);
 }
 
-const HomePage: React.FC = () => {
-  return (
-    <>
-      <Hero />
-      <About />
-      <Skills />
-      <Milestones />
-      <EngineeringGallery />
-    </>
-  );
-};
+/** Global pointer effects: cursor glow, card spotlight, scroll progress bar. */
+function useGlobalFx() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const onMove = (e: PointerEvent) => {
+      root.style.setProperty("--cx", `${e.clientX}px`);
+      root.style.setProperty("--cy", `${e.clientY}px`);
+      const spot = (e.target as HTMLElement | null)?.closest?.(".spot") as HTMLElement | null;
+      if (spot) {
+        const r = spot.getBoundingClientRect();
+        spot.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        spot.style.setProperty("--my", `${e.clientY - r.top}px`);
+      }
+    };
+    const onScroll = () => {
+      const h = root.scrollHeight - window.innerHeight;
+      root.style.setProperty("--progress", h > 0 ? String(window.scrollY / h) : "0");
+      root.style.setProperty("--sy", String(window.scrollY));
+      root.classList.toggle("scrolled", window.scrollY > 40);
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+}
+
+const HomePage: React.FC = () => (
+  <>
+    <Hero />
+    <About />
+    <Skills />
+    <Milestones />
+    <EngineeringGallery />
+  </>
+);
 
 function AppContent() {
   const location = useLocation();
   useScrollReveal();
+  useGlobalFx();
 
-  const hideFooterRoutes = [
-    "/contact",
-    "/experience",
-    "/service",
-    "/services",
-    "/project",
-    "/projects",
-  ];
-
+  const hideFooterRoutes = ["/contact", "/experience", "/service", "/services", "/project", "/projects"];
   const showFooter = !hideFooterRoutes.includes(location.pathname);
 
   return (
     <div className="portfolio-app-root">
+      <div className="fx-progress" aria-hidden="true" />
+      <div className="fx-cursor" aria-hidden="true" />
+      <div className="fx-grain" aria-hidden="true" />
       <ScrollHandler />
       <Navbar />
 

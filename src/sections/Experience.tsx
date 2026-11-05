@@ -12,6 +12,8 @@ import {
 
 import htrLogoImg from "../assets/images/htr-logo.png";
 import kuBuildingImg from "../assets/images/ku-building.jpg";
+import rahughatLogoImg from "../assets/images/rahughat-logo.png";
+import greenLogoImg from "../assets/images/green-engineering-logo.png";
 
 interface WorkExperience {
   badge: string;
@@ -39,8 +41,7 @@ const workList: WorkExperience[] = [
     category: "HYDROPOWER & TUNNELING",
     company: "Hydro Tunneling & Research",
     role: "Hydropower Design Assistant",
-    description:
-      "Assisting in hydraulic profile design, technical drafting, tunnel geometry, and engineering coordination.",
+    description: "Assisting in hydraulic profile design, technical drafting, tunnel geometry, and engineering coordination.",
     isCurrent: true,
     link: "https://htr.com.np/",
     icon: Building2,
@@ -52,8 +53,7 @@ const workList: WorkExperience[] = [
     category: "RESEARCH LAB",
     company: "Kathmandu University",
     role: "Research Intern",
-    description:
-      "Conducted rock mechanics laboratory trials, UTM testing, and research tunnel geotechnical analysis.",
+    description: "Conducted rock mechanics laboratory trials, UTM testing, and research tunnel geotechnical analysis.",
     icon: FlaskConical,
     thumbImg: kuBuildingImg,
   },
@@ -62,18 +62,20 @@ const workList: WorkExperience[] = [
     category: "SITE EXECUTION",
     company: "Rahughat Hydroelectric (40MW)",
     role: "Hydroelectric Project Intern",
-    description:
-      "Field exposure in construction monitoring, civil structural supervision, and site progress reporting.",
+    description: "Field exposure in construction monitoring, civil structural supervision, and site progress reporting.",
     icon: HardHat,
+    thumbImg: rahughatLogoImg,
+    isLogoThumb: true,
   },
   {
     badge: "Freelance",
     category: "FREELANCE DRAFTING",
     company: "Green Engineering & Solution",
     role: "Civil & Structural Drafting",
-    description:
-      "Delivered freelance structural CAD drawings, civil component drafting, and BOQ layout vetting.",
+    description: "Delivered freelance structural CAD drawings, civil component drafting, and BOQ layout vetting.",
     icon: DraftingCompass,
+    thumbImg: greenLogoImg,
+    isLogoThumb: true,
   },
 ];
 
@@ -117,119 +119,99 @@ const leadershipRecords: LeadershipRecord[] = [
 ];
 
 const Experience: React.FC = () => {
-  const cardDelays = ["delay-100", "delay-200", "delay-300", "delay-400"];
-
   return (
-    <section className="aashu-exp-section" id="experience">
-      <div className="aashu-exp-single-container">
-        
-        {/* Section Header */}
-        <div className="pane-header center-align reveal-on-scroll">
-          <span className="pane-eyebrow">CAREER PATH</span>
-          <h2 className="pane-title">Professional <span>Work Experience</span></h2>
-          <p className="pane-subtitle-desc">
+    <section className="section page-top" id="experience">
+      <div className="page-glow" aria-hidden="true" />
+      <div className="wrap">
+        <header className="sec-head reveal-on-scroll">
+          <span className="mono-label">Career Path</span>
+          <h1 className="sec-title sec-title-xl">
+            Professional <em>Work Experience</em>
+          </h1>
+          <p className="sec-sub">
             Direct industry experience across hydropower design, site monitoring, and geotechnical research.
           </p>
-        </div>
+        </header>
 
-        {/* 2x2 Work Experience Grid with Side Thumbnail Support */}
-        <div className="aashu-cards-grid">
+        <div className="exp-grid">
           {workList.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
-                className={`aashu-work-card ${item.isCurrent ? "current-card" : ""} ${item.thumbImg ? "has-thumb" : ""} reveal-on-scroll ${cardDelays[idx] || ""}`}
+              <article
+                className={`exp-card spot ${item.isCurrent ? "exp-current" : ""} reveal-on-scroll delay-${(idx % 2 + 1) * 100}`}
                 key={idx}
               >
-                <div className="card-content-left">
-                  <div className="card-top-header">
-                    <div className="card-logo-box">
+                <div className="exp-main">
+                  <div className="exp-top">
+                    <span className="exp-ico">
                       <Icon size={20} />
-                    </div>
-                    <span className="card-year-badge">{item.badge}</span>
+                    </span>
+                    <span className={`pill ${item.isCurrent ? "pill-live" : "pill-mono"}`}>
+                      {item.isCurrent && <span className="live-dot" />}
+                      {item.badge}
+                    </span>
                   </div>
-
-                  <span className="card-cat-label">{item.category}</span>
-
-                  <h3 className="card-company-title">
+                  <span className="mono-label">{item.category}</span>
+                  <h3>
                     {item.company}
                     {item.link && (
-                      <a href={item.link} target="_blank" rel="noreferrer" title="Visit website">
-                        <ExternalLink size={12} />
+                      <a href={item.link} target="_blank" rel="noreferrer" title="Visit website" aria-label="Visit website">
+                        <ExternalLink size={13} />
                       </a>
                     )}
                   </h3>
-
-                  <h4 className="card-role-title">{item.role}</h4>
-                  <p className="card-desc-body">{item.description}</p>
+                  <h4>{item.role}</h4>
+                  <p>{item.description}</p>
                 </div>
 
-                {/* Right Side Visual Thumbnail */}
                 {item.thumbImg && (
-                  <div className={`card-thumb-wrap ${item.isLogoThumb ? "logo-style" : "photo-style"}`}>
-                    <img src={item.thumbImg} alt={item.company} className="card-thumb-image" />
+                  <div className={`exp-thumb ${item.isLogoThumb ? "exp-thumb-logo" : ""}`}>
+                    <img src={item.thumbImg} alt={item.company} />
                   </div>
                 )}
-              </div>
+              </article>
             );
           })}
         </div>
 
-        {/* Action CTAs */}
-        <div className="aashu-cta-buttons center-align-cta reveal-on-scroll delay-200">
-          <a
-            href="/prabin-resume.pdf"
-            download="Prabin_Shah_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-aashu-resume"
-          >
-            <Download size={15} />
+        <div className="cta-row reveal-on-scroll delay-200">
+          <a href="/prabin-resume.pdf" download="Prabin_Shah_CV.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            <Download size={16} />
             <span>Download Resume</span>
           </a>
-
-          <a href="mailto:prabinshah919@gmail.com" className="btn-aashu-contact">
-            <Send size={15} />
+          <a href="mailto:prabinshah919@gmail.com" className="btn btn-ghost">
+            <Send size={16} />
             <span>Contact Me</span>
           </a>
         </div>
 
-        {/* Sleek Editorial Leadership Registry */}
-        <div className="lead-registry-wrap">
-          <div className="lead-registry-header reveal-on-scroll">
-            <span className="pane-eyebrow">COMMUNITY & ORGANIZATIONAL IMPACT</span>
-            <h2 className="pane-title">
-              Leadership & <span>Additional Experience</span>
+        <div className="lead">
+          <header className="sec-head reveal-on-scroll">
+            <span className="mono-label">Community &amp; Organizational Impact</span>
+            <h2 className="sec-title">
+              Leadership &amp; <em>Additional Experience</em>
             </h2>
-            <p className="lead-registry-sub">
-              Elected roles, departmental coordination, and international conference volunteering during tenure at Kathmandu University.
+            <p className="sec-sub">
+              Elected roles, departmental coordination, and international conference volunteering during
+              tenure at Kathmandu University.
             </p>
-          </div>
+          </header>
 
-          <div className="lead-registry-table">
+          <div className="lead-table">
             {leadershipRecords.map((item, idx) => (
-              <div 
-                className={`lead-row reveal-on-scroll ${idx < 4 ? cardDelays[idx] : "delay-400"}`} 
-                key={idx}
-              >
-                <div className="lead-col-period">
-                  <span className="lead-period-pill">{item.period}</span>
+              <div className={`lead-row spot reveal-on-scroll delay-${Math.min(idx % 4 + 1, 4) * 100}`} key={idx}>
+                <span className="lead-idx mono-label">{String(idx + 1).padStart(2, "0")}</span>
+                <span className="pill pill-mono lead-period">{item.period}</span>
+                <div className="lead-role">
+                  <b>{item.role}</b>
+                  <span>{item.entity}</span>
                 </div>
-                <div className="lead-col-role">
-                  <span className="lead-main-role">{item.role}</span>
-                  <span className="lead-main-entity">{item.entity}</span>
-                </div>
-                <div className="lead-col-domain">
-                  <span>{item.domain}</span>
-                </div>
-                <div className="lead-col-action">
-                  <ArrowUpRight size={16} className="lead-arrow" />
-                </div>
+                <span className="lead-domain">{item.domain}</span>
+                <ArrowUpRight size={18} className="lead-arrow" />
               </div>
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

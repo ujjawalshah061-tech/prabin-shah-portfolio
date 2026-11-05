@@ -20,9 +20,9 @@ const milestoneData: MilestoneItem[] = [
     id: 1,
     tag: "ACADEMIC CONVOCATION",
     title: "B.E. Civil Engineering Conferred",
-    caption: "Receiving Bachelor's degree from Kathmandu University School of Engineering, graduating with a 3.44 GPA.",
+    caption: "Receiving Bachelor's degree from Kathmandu University School of Engineering.",
     image: convocationImg,
-    icon: <GraduationCap size={16} />,
+    icon: <GraduationCap size={14} />,
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const milestoneData: MilestoneItem[] = [
     title: "KU Civil Club Keynote & Address",
     caption: "Addressing students and faculty at Kathmandu University Civil Engineering Club (KUCEC) official assembly.",
     image: kuSpeechImg,
-    icon: <Mic2 size={16} />,
+    icon: <Mic2 size={14} />,
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const milestoneData: MilestoneItem[] = [
     title: "Academic Colloquium Presentation",
     caption: "Delivering engineering insights and project presentations at the Kathmandu University main auditorium.",
     image: kuPodiumImg,
-    icon: <Award size={16} />,
+    icon: <Award size={14} />,
   },
   {
     id: 4,
@@ -46,45 +46,43 @@ const milestoneData: MilestoneItem[] = [
     title: "KU School of Engineering Premise",
     caption: "Academic journey representation at Kathmandu University, transitioning from student researcher to industry founder.",
     image: campusPortraitImg,
-    icon: <Building2 size={16} />,
+    icon: <Building2 size={14} />,
   },
 ];
 
 const Milestones: React.FC = () => {
-  const delays = ["delay-100", "delay-200", "delay-300", "delay-400"];
-
   return (
-    <section className="milestones-section" id="milestones">
-      <div className="milestones-container">
-        <div className="milestones-header reveal-on-scroll">
-          <span className="milestones-eyebrow">HONORS & LEADERSHIP</span>
-          <h2 className="milestones-title">
-            Academic & Public <span>Milestones</span>
+    <section className="section milestones" id="milestones">
+      <div className="wrap">
+        <header className="sec-head reveal-on-scroll">
+          <span className="mono-label">03 / Honors &amp; Leadership</span>
+          <h2 className="sec-title">
+            Academic &amp; Public <em>Milestones</em>
           </h2>
-          <p className="milestones-subtitle">
-            Moments reflecting academic dedication, leadership roles at Kathmandu University, and formal technical addresses.
+          <p className="sec-sub">
+            Moments reflecting academic dedication, leadership roles at Kathmandu University, and formal
+            technical addresses.
           </p>
-        </div>
+        </header>
 
-        <div className="milestones-grid">
+        <div className="ms-grid">
           {milestoneData.map((item, idx) => (
-            <div 
-              key={item.id} 
-              className={`milestone-card reveal-on-scroll ${delays[idx] || ""}`}
+            <article
+              key={item.id}
+              className={`ms-card ms-${item.id} spot reveal-on-scroll delay-${(idx % 2) * 100 + 100}`}
             >
-              <div className="milestone-img-box">
-                <img src={item.image} alt={item.title} className="milestone-img" />
-                <div className="milestone-overlay-shade"></div>
-                <div className="milestone-tag-pill">
+              <img src={item.image} alt={item.title} className="ms-img" loading="lazy" />
+              <div className="ms-shade" />
+              <span className="ms-index">{String(item.id).padStart(2, "0")}</span>
+              <div className="ms-body">
+                <span className="chip chip-glass">
                   {item.icon}
-                  <span>{item.tag}</span>
-                </div>
+                  {item.tag}
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.caption}</p>
               </div>
-              <div className="milestone-text-block">
-                <h3 className="milestone-card-title">{item.title}</h3>
-                <p className="milestone-card-desc">{item.caption}</p>
-              </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

@@ -10,19 +10,17 @@ interface GalleryItem {
   title: string;
   caption: string;
   image: string;
-  span: string;
-  imgPos: string;
+  pos: string;
 }
 
 const galleryData: GalleryItem[] = [
   {
     id: 1,
-    tag: "FIELD SURVEYING & GEODETICS",
-    title: "Electronic Total Station Profiling",
-    caption: "Conducting geodetic alignment and topographic leveling for roadway profiling and structural grid setting at Kathmandu University.",
+    tag: "UNDERGROUND STRUCTURES",
+    title: "Tunnel Modeling",
+    caption: "Tunnel geometry and numerical modeling for underground hydropower waterways.",
     image: surveyImg,
-    span: "col-span-1 row-span-2",
-    imgPos: "pos-survey",
+    pos: "center center",
   },
   {
     id: 2,
@@ -30,8 +28,7 @@ const galleryData: GalleryItem[] = [
     title: "Core Specimen Extraction for UTM",
     caption: "Operating core drilling apparatus for cylindrical rock specimen sampling to conduct uniaxial compressive strength (UCS) trials.",
     image: rockDrillImg,
-    span: "col-span-1 row-span-1",
-    imgPos: "pos-rock",
+    pos: "center 30%",
   },
   {
     id: 3,
@@ -39,8 +36,7 @@ const galleryData: GalleryItem[] = [
     title: "Soil Consistency & Material Trials",
     caption: "Analyzing soil index properties, compaction parameters, and aggregate mix consistency in the laboratory.",
     image: soilLabImg,
-    span: "col-span-1 row-span-1",
-    imgPos: "pos-soil",
+    pos: "center 20%",
   },
   {
     id: 4,
@@ -48,50 +44,39 @@ const galleryData: GalleryItem[] = [
     title: "Rebar Cage Detailing & Fabrication",
     caption: "Hands-on assembly of column-beam reinforcement cage models and structural geometry during semester project work.",
     image: structuralImg,
-    span: "col-span-2 row-span-1",
-    imgPos: "pos-rebar",
+    pos: "center 75%",
   },
 ];
 
 const EngineeringGallery: React.FC = () => {
-  const delays = ["delay-100", "delay-200", "delay-300", "delay-400"];
-
   return (
-    <section className="gallery-section" id="gallery">
-      <div className="gallery-container">
-        {/* Section Header */}
-        <div className="gallery-header reveal-on-scroll">
-          <span className="gallery-eyebrow">FIELD & LABORATORY ARCHIVE</span>
-          <h2 className="gallery-title">
-            Engineering in <span>Action</span>
+    <section className="section gallery" id="gallery">
+      <div className="wrap">
+        <header className="sec-head reveal-on-scroll">
+          <span className="mono-label">04 / Field &amp; Laboratory Archive</span>
+          <h2 className="sec-title">
+            Engineering in <em>Action</em>
           </h2>
-          <p className="gallery-subtitle">
-            A visual record of geodetic field surveying, rock mechanics testing, laboratory trials, and structural modeling.
+          <p className="sec-sub">
+            A visual record of geodetic field surveying, rock mechanics testing, laboratory trials, and
+            structural modeling.
           </p>
-        </div>
+        </header>
 
-        {/* Bento Grid */}
-        <div className="gallery-bento-grid">
+        <div className="gal-grid">
           {galleryData.map((item, idx) => (
-            <div 
-              key={item.id} 
-              className={`gallery-card ${item.span} reveal-on-scroll ${delays[idx] || ""}`}
+            <figure
+              key={item.id}
+              className={`gal-card gal-${item.id} spot reveal-on-scroll delay-${(idx % 3 + 1) * 100}`}
             >
-              <div className="gallery-image-wrapper">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={`gallery-img ${item.imgPos}`}
-                />
-                <div className="gallery-overlay-gradient"></div>
-              </div>
-
-              <div className="gallery-card-content">
-                <span className="gallery-card-tag">{item.tag}</span>
-                <h3 className="gallery-card-title">{item.title}</h3>
-                <p className="gallery-card-desc">{item.caption}</p>
-              </div>
-            </div>
+              <img src={item.image} alt={item.title} style={{ objectPosition: item.pos }} loading="lazy" />
+              <div className="gal-shade" />
+              <figcaption>
+                <span className="mono-label">{item.tag}</span>
+                <h3>{item.title}</h3>
+                <p>{item.caption}</p>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </div>

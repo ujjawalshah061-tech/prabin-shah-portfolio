@@ -6,72 +6,66 @@ const Navbar: React.FC = () => {
   const location = useLocation();
 
   const [isDark, setIsDark] = useState<boolean>(() => {
-    return localStorage.getItem("portfolio-theme") === "dark";
+    try {
+      return localStorage.getItem("portfolio-theme") !== "light";
+    } catch {
+      return true;
+    }
   });
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      document.body.classList.add("dark-mode");
-      localStorage.setItem("portfolio-theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.body.classList.remove("dark-mode");
-      localStorage.setItem("portfolio-theme", "light");
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    try {
+      localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
+    } catch {
+      /* storage unavailable */
     }
   }, [isDark]);
-
-  const toggleTheme = () => {
-    setIsDark((prev) => !prev);
-  };
 
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/#about" },
     { name: "Experience", path: "/experience" },
-    
-    { name: "Project", path: "/project"}
+    { name: "Projects", path: "/project" },
   ];
 
   return (
-    <header className="navbar-container">
-      <div className="navbar-inner">
-        <Link to="/" className="brand-logo">
-          <span className="logo-symbol">P</span>
+    <header className="nav-wrap">
+      <div className="nav-pill">
+        <Link to="/" className="nav-brand" aria-label="Home">
+          <span className="nav-mark">P</span>
+          <span className="nav-brand-text">
+            Prabin<em>Shah</em>
+          </span>
         </Link>
 
-        <nav className="nav-menu">
+        <nav className="nav-links">
           {navLinks.map((link) => {
             const isActive =
               link.path === "/#about"
                 ? location.hash === "#about" || location.pathname === "/about"
+                : link.path === "/project"
+                ? location.pathname === "/project" || location.pathname === "/projects"
                 : location.pathname === link.path && !location.hash;
-
             return (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`nav-item ${isActive ? "active" : ""}`}
-              >
+              <Link key={link.name} to={link.path} className={`nav-link ${isActive ? "active" : ""}`}>
                 {link.name}
               </Link>
             );
           })}
         </nav>
 
-        <div className="nav-right-actions">
-          <button 
-            onClick={toggleTheme} 
-            className={`theme-pill-switch ${isDark ? "switch-dark" : "switch-light"}`} 
-            type="button" 
-            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        <div className="nav-actions">
+          <button
+            onClick={() => setIsDark((p) => !p)}
+            className="nav-theme"
+            type="button"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Light mode" : "Dark mode"}
           >
-            <span className="switch-slider">
-              {isDark ? <Moon size={13} /> : <Sun size={13} />}
-            </span>
+            {isDark ? <Sun size={15} /> : <Moon size={15} />}
           </button>
-
-          <Link to="/contact" className="btn-contact-nav">
+          <Link to="/contact" className="nav-cta">
             <span>Contact</span>
             <Send size={13} />
           </Link>
