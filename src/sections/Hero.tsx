@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Download, Building, MapPin, Mountain, GraduationCap } from "lucide-react";
+import { ArrowUpRight, Download, Building, MapPin, GraduationCap } from "lucide-react";
 import prabinImg from "../assets/images/prabin-shah.png";
 import blueprintImg from "../assets/images/hero-blueprint.jpg";
 
 const roles = [
   "Hydropower Designer",
-  "Rock Mechanics Researcher",
   "Structural Drafter",
   "Founder & CEO",
 ];
@@ -20,7 +19,7 @@ const stats = [
 
 const marquee = [
   "Civil 3D", "AutoCAD", "HEC-RAS", "SAP 2000", "SW_DTM", "SW_Road", "Primavera",
-  "Hydropower Design", "Rock Mechanics", "BOQ Estimation", "Tunnel Modeling",
+  "Hydropower Design", "BOQ Estimation", "Tunnel Modeling",
 ];
 
 function CountUp({ to, decimals, suffix }: { to: number; decimals: number; suffix: string }) {
@@ -106,15 +105,14 @@ const Hero: React.FC = () => {
           </h1>
 
           <div className="hero-role" aria-live="polite">
-            <span className="hero-role-prefix">—</span>
-            <span key={roleIdx} className="hero-role-word">
+                        <span key={roleIdx} className="hero-role-word">
               {roles[roleIdx]}
             </span>
           </div>
 
           <p className="hero-desc">
             Civil Engineering professional &amp; researcher from Kathmandu University, specializing in
-            hydropower design, underground rock mechanics, structural drafting and sustainable
+            hydropower design, structural drafting and sustainable
             infrastructure — based in Lalitpur, Nepal.
           </p>
 
@@ -150,13 +148,6 @@ const Hero: React.FC = () => {
               <span>
                 <b>CEO &amp; Founder</b>
                 <small>Code &amp; Concrete Construction</small>
-              </span>
-            </div>
-            <div className="float-card fc-2">
-              <span className="fc-ico"><Mountain size={15} /></span>
-              <span>
-                <b>Rock Mechanics</b>
-                <small>KU Research Tunnel</small>
               </span>
             </div>
             <div className="float-card fc-3">

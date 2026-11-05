@@ -614,3 +614,12 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   .pj-row-meta { flex-direction: row; align-items: baseline; gap: 14px; padding-left: 0; }
   .pj-row-tools { text-align: left; padding-right: 0; }
 }
+
+/* Contact form states */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.btn[disabled] { opacity: 0.7; cursor: progress; transform: none; }
+.form-status { padding: 14px 18px; border-radius: 14px; font-size: 14.5px; line-height: 1.5; border: 1px solid var(--line-2); }
+.form-status-success { color: #35e08a; border-color: rgba(53, 224, 138, 0.4); background: rgba(53, 224, 138, 0.08); }
+.form-status-error { color: #ff6b6b; border-color: rgba(255, 107, 107, 0.4); background: rgba(255, 107, 107, 0.08); }
+:root[data-theme="light"] .form-status-success { color: #0b7a43; }
+:root[data-theme="light"] .form-status-error { color: #c0392b; }

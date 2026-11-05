@@ -2,15 +2,38 @@ import React, { useState } from "react";
 import { Mail, Phone, Send, ExternalLink, MessageCircle } from "lucide-react";
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
+  const empty = { name: "", phone: "", email: "", message: "", website: "" };
+  const [formData, setFormData] = useState(empty);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [feedback, setFeedback] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:prabinshah919@gmail.com?subject=${subject}&body=${body}`;
+    if (status === "sending") return;
+    setStatus("sending");
+    setFeedback("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) throw new Error(data.error || "Something went wrong.");
+      setStatus("success");
+      setFeedback(
+        data.confirmationSent === false
+          ? "Message sent! I'll get back to you soon. (We couldn't deliver the confirmation copy to your email.)"
+          : "Message sent! A confirmation copy is on its way to your email."
+      );
+      setFormData(empty);
+    } catch (err) {
+      setStatus("error");
+      setFeedback(
+        (err instanceof Error ? err.message : "Something went wrong.") +
+          " You can also email prabinshah919@gmail.com or message me on WhatsApp."
+      );
+    }
   };
 
   return (
@@ -75,10 +98,27 @@ const Contact: React.FC = () => {
                 />
               </label>
 
-              <button type="submit" className="btn btn-primary btn-block">
-                <span>Send message</span>
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hp-field"
+                value={formData.website}
+                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+              />
+
+              <button type="submit" className="btn btn-primary btn-block" disabled={status === "sending"}>
+                <span>{status === "sending" ? "Sending..." : "Send message"}</span>
                 <Send size={16} />
               </button>
+
+              {feedback && (
+                <p className={`form-status form-status-${status}`} role="status" aria-live="polite">
+                  {feedback}
+                </p>
+              )}
             </form>
           </div>
 
