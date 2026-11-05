@@ -2,6 +2,7 @@
 // and the Vercel serverless function (api/contact.js).
 // Sends every message to the site owner (admin) AND a confirmation copy to the visitor.
 import nodemailer from "nodemailer";
+import { validateEmail, validateMessage, validateName, validatePhone } from "../shared/validation.js";
 
 const env = () => {
   const GMAIL_USER = (process.env.GMAIL_USER || "").trim();
@@ -23,7 +24,6 @@ export const isMailConfigured = () => {
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 // Small in-memory rate limit: 5 submissions per IP per hour.
 // (On serverless hosts this resets when the instance restarts - it is a basic guard, not a guarantee.)
@@ -52,15 +52,8 @@ export async function handleContact(rawBody, ip = "unknown") {
   const email = String(body.email || "").trim();
   const message = String(body.message || "").trim();
 
-  if (!name || !phone || !email || !message) {
-    return { status: 400, body: { ok: false, error: "Please fill in all fields." } };
-  }
-  if (!EMAIL_RE.test(email) || email.length > 120) {
-    return { status: 400, body: { ok: false, error: "Please enter a valid email address." } };
-  }
-  if (name.length > 100 || phone.length > 40 || message.length > 5000) {
-    return { status: 400, body: { ok: false, error: "One of the fields is too long." } };
-  }
+  const error = validateName(name) || validatePhone(phone) || validateEmail(email) || validateMessage(message);
+  if (error) return { status: 400, body: { ok: false, error } };
   if (!isMailConfigured()) {
     console.error("Mail not configured: set GMAIL_USER and GMAIL_APP_PASSWORD");
     return { status: 503, body: { ok: false, error: "Email service is not configured yet." } };

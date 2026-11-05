@@ -623,3 +623,9 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .form-status-error { color: #ff6b6b; border-color: rgba(255, 107, 107, 0.4); background: rgba(255, 107, 107, 0.08); }
 :root[data-theme="light"] .form-status-success { color: #0b7a43; }
 :root[data-theme="light"] .form-status-error { color: #c0392b; }
+
+/* Field validation */
+.field-error { font-style: normal; font-size: 13px; line-height: 1.4; color: #ff6b6b; }
+:root[data-theme="light"] .field-error { color: #c0392b; }
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #ff6b6b; }
+.field input[aria-invalid="true"]:focus, .field textarea[aria-invalid="true"]:focus { box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.18); }
