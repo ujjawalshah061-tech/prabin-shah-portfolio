@@ -13,7 +13,7 @@ import {
 import htrLogoImg from "../assets/images/htr-logo.png";
 import kuBuildingImg from "../assets/images/ku-building.jpg";
 import rahughatLogoImg from "../assets/images/rahughat-logo.png";
-import greenLogoImg from "../assets/images/green-engineering-logo.png";
+import greenLogoImg from "../assets/images/greensolutions.jpg";
 
 interface WorkExperience {
   badge: string;
@@ -49,15 +49,16 @@ const workList: WorkExperience[] = [
     isLogoThumb: true,
   },
   {
-    badge: "2024",
-    category: "RESEARCH LAB",
-    company: "Kathmandu University",
-    role: "Research Intern",
-    description: "Conducted rock mechanics laboratory trials, UTM testing, and research tunnel geotechnical analysis.",
-    icon: FlaskConical,
-    thumbImg: kuBuildingImg,
+    badge: "Freelance",
+    category: "FREELANCE DRAFTING",
+    company: "Green Engineering & Solution",
+    role: "Civil & Structural Drafting",
+    description: "Delivered freelance structural CAD drawings, civil component drafting, and BOQ layout vetting.",
+    icon: DraftingCompass,
+    thumbImg: greenLogoImg,
+    isLogoThumb: true,
   },
-  {
+   {
     badge: "2023 - 2024",
     category: "SITE EXECUTION",
     company: "Rahughat Hydroelectric (40MW)",
@@ -68,15 +69,16 @@ const workList: WorkExperience[] = [
     isLogoThumb: true,
   },
   {
-    badge: "Freelance",
-    category: "FREELANCE DRAFTING",
-    company: "Green Engineering & Solution",
-    role: "Civil & Structural Drafting",
-    description: "Delivered freelance structural CAD drawings, civil component drafting, and BOQ layout vetting.",
-    icon: DraftingCompass,
-    thumbImg: greenLogoImg,
-    isLogoThumb: true,
+    badge: "2024",
+    category: "RESEARCH LAB",
+    company: "Kathmandu University",
+    role: "Research Intern",
+    description: "Conducted rock mechanics laboratory trials, UTM testing, and research tunnel geotechnical analysis.",
+    icon: FlaskConical,
+    thumbImg: kuBuildingImg,
   },
+ 
+  
 ];
 
 const leadershipRecords: LeadershipRecord[] = [
@@ -91,6 +93,12 @@ const leadershipRecords: LeadershipRecord[] = [
     role: "Coordinator",
     entity: "Kathmandu University Youth Red Cross Circle (KUYRCC)",
     domain: "Institutional Blood Donation & Humanitarian Drives",
+  },
+   {
+    period: "2024",
+    role: "Volunteer",
+    entity: "Kathmandu University",
+    domain: "Volunteered in Roshi River Flood areas for donation, and data collection",
   },
   {
     period: "2024",

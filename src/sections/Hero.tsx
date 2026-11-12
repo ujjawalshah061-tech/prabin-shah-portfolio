@@ -19,7 +19,7 @@ const stats = [
 
 const marquee = [
   "Civil 3D", "AutoCAD", "HEC-RAS", "SAP 2000", "SW_DTM", "SW_Road", "Primavera",
-  "Hydropower Design", "BOQ Estimation", "Tunnel Modeling",
+  "Hydropower Design", "BOQ Estimation",
 ];
 
 function CountUp({ to, decimals, suffix }: { to: number; decimals: number; suffix: string }) {

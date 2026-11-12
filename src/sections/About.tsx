@@ -42,7 +42,7 @@ const competencies = [
   "Hydropower Hydraulic Design",
   "Rock Mechanics & UTM Testing",
   "AutoCAD & Civil 3D Drafting",
-  "Underground Tunnel Modeling",
+  "Residential Building Construction",
   "BOQ & Cost Estimation",
   "Construction Site Monitoring",
 ];
