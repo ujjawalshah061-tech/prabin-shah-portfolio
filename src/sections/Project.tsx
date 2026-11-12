@@ -15,7 +15,7 @@ const featured = {
   title: "Budhigandaki Hydropower Project",
   capacity: "341 MW",
   role: "Detailed design & drafting",
-  desc: "Nepal's flagship national hydropower scheme and one of the most technically complex underground infrastructure programmes in the country. Performed 3D FEM numerical modelling of the underground powerhouse complex, headrace tunnel and surge shaft, with geophysical and geotechnical investigation planning, coordination and interpretation, and rock support optimisation under high in-situ stress in complex Himalayan geology.",
+  desc: "Nepal's flagship national hydropower scheme and one of the most technically complex underground infrastructure programmes in the country.",
   specs: [
     { value: "101 × 17 × 35 m", label: "Underground powerhouse (approx.)" },
     { value: "5.95 km", label: "Horseshoe headrace tunnel" },
