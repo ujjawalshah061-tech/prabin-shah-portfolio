@@ -1,88 +1,13 @@
-import React, { useState } from "react";
-import budhigandakiImg from "../assets/images/sahas-feat.jpg";
-
-type Category = "Professional" | "Hydropower" | "Physical Modeling";
-
-interface ProjectItem {
-  category: Category;
-  title: string;
-  desc: string;
-  tools: string[];
-  capacity?: string;
-}
-
-const featured = {
-  title: "Budhigandaki Hydropower Project",
-  capacity: "341 MW",
-  role: "Detailed design & drafting",
-  desc: "Nepal's flagship national hydropower scheme and one of the most technically complex underground infrastructure programmes in the country.",
-  specs: [
-    { value: "101 × 17 × 35 m", label: "Underground powerhouse (approx.)" },
-    { value: "5.95 km", label: "Horseshoe headrace tunnel" },
-    { value: "6.8 m", label: "Tunnel diameter" },
-    { value: "3D FEM", label: "Numerical modelling" },
-  ],
-  tools: ["3D FEM Modelling", "Rock Support Design", "Geotechnical Interpretation", "AutoCAD", "Civil 3D"],
-};
-
-const projects: ProjectItem[] = [
-  {
-    category: "Professional",
-    title: "Upper Dudhkhola Hydropower Project",
-    desc: "Detailed design and drafting support for the waterway system — hydraulic profile layouts, tunnel geometry and construction drawings coordinated with the design team.",
-    tools: ["Civil 3D", "AutoCAD", "Hydraulic Profiling"],
-  },
-  {
-    category: "Professional",
-    title: "Dudhkoshi-6 Hydropower Project",
-    desc: "Design-stage engineering support: hydraulic layout, tunnel alignment studies and geotechnical drawing preparation for underground components.",
-    tools: ["Civil 3D", "AutoCAD", "Tunnel Geometry"],
-    capacity: "270 MW",
-  },
-  {
-    category: "Professional",
-    title: "Upper Maiwa Khola Hydropower Project",
-    desc: "Drafting and hydraulic design coordination covering headworks and waterway layouts and the associated drawing sets.",
-    tools: ["AutoCAD", "Civil 3D", "HEC-RAS"],
-    capacity: "17.85 MW",
-  },
-  {
-    category: "Professional",
-    title: "Paramolung Hydropower Project",
-    desc: "Technical drafting and design support, preparing layout drawings and waterway details through the design stage.",
-    tools: ["AutoCAD", "Civil 3D", "Technical Drafting"],
-    capacity: "9 MW",
-  },
-  {
-    category: "Hydropower",
-    title: "Potential Study of Hewa-A Small Hydropower Project",
-    desc: "Final-year capstone: feasibility study covering river discharge estimation, hydraulic headrace alignment, intake design and energy yield calculation at Kathmandu University.",
-    tools: ["Civil 3D", "HEC-RAS", "SW_DTM", "AutoCAD"],
-  },
-  {
-    category: "Hydropower",
-    title: "RUM Project of Pharping Hydropower to Convert into Pump Storage Hydropower",
-    desc: "Rehabilitation, Upgradation and Modernization investigation modeling reservoir circulation loops and peak-energy storage for Nepal's historic first plant.",
-    tools: ["Hydraulic Modeling", "AutoCAD", "Fluid Mechanics"],
-  },
-  {
-    category: "Physical Modeling",
-    title: "Physical Model Study of Kalanki Underpass",
-    desc: "Scaled structural and geotechnical prototype evaluating retaining wall earth pressure, approach slopes and urban drainage underpass behavior.",
-    tools: ["Physical Prototyping", "Soil Mechanics", "Structural Modeling"],
-  },
-  {
-    category: "Physical Modeling",
-    title: "Physical Model Study of Isolated and Combined Footings",
-    desc: "Laboratory modeling analyzing stress distribution bulbs, differential settlement and load-bearing performance against Terzaghi theory.",
-    tools: ["Geotechnical Lab", "Static Load Rig", "Dial Gauges"],
-  },
-];
-
-const tabs = ["All", "Professional", "Hydropower", "Physical Modeling"] as const;
+import React, { useMemo, useState } from "react";
+import { useContent } from "../content/ContentContext";
+import { imgSrc } from "../content/images";
 
 const Project: React.FC = () => {
+  const { projects, featured } = useContent();
   const [activeTab, setActiveTab] = useState<string>("All");
+
+  // Tabs are built from the groups that actually exist, so a new group in the CMS gets its own tab.
+  const tabs = useMemo(() => ["All", ...Array.from(new Set(projects.map((p) => p.category)))], [projects]);
   const filtered = activeTab === "All" ? projects : projects.filter((p) => p.category === activeTab);
   const showFeatured = activeTab === "All" || activeTab === "Professional";
 
@@ -118,7 +43,7 @@ const Project: React.FC = () => {
         {showFeatured && (
           <article className="pj-feat">
             <div className="pj-feat-photo">
-              <img src={budhigandakiImg} alt="Hydropower dam spillway" />
+              <img src={imgSrc(featured.imageUrl, featured.imageFile, 1400)} alt={featured.title} />
             </div>
 
             <div className="pj-feat-text">
@@ -128,8 +53,8 @@ const Project: React.FC = () => {
               <p className="pj-feat-desc">{featured.desc}</p>
 
               <dl className="pj-specs">
-                {featured.specs.map((s) => (
-                  <div key={s.label}>
+                {featured.specs.map((s, i) => (
+                  <div key={`${s.label}-${i}`}>
                     <dt>{s.value}</dt>
                     <dd>{s.label}</dd>
                   </div>
@@ -142,8 +67,8 @@ const Project: React.FC = () => {
         )}
 
         <div className="pj-list">
-          {filtered.map((item) => (
-            <article key={item.title} className="pj-row">
+          {filtered.map((item, i) => (
+            <article key={`${item.title}-${i}`} className="pj-row">
               <div className="pj-row-meta">
                 <span className="pj-cat">{item.category}</span>
                 {item.capacity && <span className="pj-cap">{item.capacity}</span>}

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Send, Sun, Moon } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const { settings } = useContent();
 
   const [isDark, setIsDark] = useState<boolean>(() => {
     try {
@@ -33,9 +35,9 @@ const Navbar: React.FC = () => {
     <header className="nav-wrap">
       <div className="nav-pill">
         <Link to="/" className="nav-brand" aria-label="Home">
-          <span className="nav-mark">P</span>
+          <span className="nav-mark">{settings.firstName.charAt(0)}</span>
           <span className="nav-brand-text">
-            Prabin<em>Shah</em>
+            {settings.firstName}<em>{settings.lastName}</em>
           </span>
         </Link>
 

@@ -9,124 +9,20 @@ import {
   ExternalLink,
   ArrowUpRight,
 } from "lucide-react";
+import { useContent } from "../content/ContentContext";
+import { imgSrc } from "../content/images";
+import type { WorkIcon } from "../content/types";
 
-import htrLogoImg from "../assets/images/htr-logo.png";
-import kuBuildingImg from "../assets/images/ku-building.jpg";
-import rahughatLogoImg from "../assets/images/rahughat-logo.png";
-import greenLogoImg from "../assets/images/greensolutions.jpg";
-
-interface WorkExperience {
-  badge: string;
-  category: string;
-  company: string;
-  role: string;
-  description: string;
-  isCurrent?: boolean;
-  link?: string;
-  icon: React.ElementType;
-  thumbImg?: string;
-  isLogoThumb?: boolean;
-}
-
-interface LeadershipRecord {
-  period: string;
-  role: string;
-  entity: string;
-  domain: string;
-}
-
-const workList: WorkExperience[] = [
-  {
-    badge: "2024 - Present",
-    category: "HYDROPOWER & TUNNELING",
-    company: "Hydro Tunneling & Research",
-    role: "Hydropower Design Assistant",
-    description: "Assisting in hydraulic profile design, technical drafting, tunnel geometry, and engineering coordination.",
-    isCurrent: true,
-    link: "https://htr.com.np/",
-    icon: Building2,
-    thumbImg: htrLogoImg,
-    isLogoThumb: true,
-  },
-  {
-    badge: "Freelance",
-    category: "FREELANCE DRAFTING",
-    company: "Green Engineering & Solution",
-    role: "Civil & Structural Drafting",
-    description: "Delivered freelance structural CAD drawings, civil component drafting, and BOQ layout vetting.",
-    icon: DraftingCompass,
-    thumbImg: greenLogoImg,
-    isLogoThumb: true,
-  },
-   {
-    badge: "2023 - 2024",
-    category: "SITE EXECUTION",
-    company: "Rahughat Hydroelectric (40MW)",
-    role: "Hydroelectric Project Intern",
-    description: "Field exposure in construction monitoring, civil structural supervision, and site progress reporting.",
-    icon: HardHat,
-    thumbImg: rahughatLogoImg,
-    isLogoThumb: true,
-  },
-  {
-    badge: "2024",
-    category: "RESEARCH LAB",
-    company: "Kathmandu University",
-    role: "Research Intern",
-    description: "Conducted rock mechanics laboratory trials, UTM testing, and research tunnel geotechnical analysis.",
-    icon: FlaskConical,
-    thumbImg: kuBuildingImg,
-  },
- 
-  
-];
-
-const leadershipRecords: LeadershipRecord[] = [
-  {
-    period: "2024 / 2025",
-    role: "President",
-    entity: "Kathmandu University Civil Engineering Club (KUCEC)",
-    domain: "Executive Student Body & Technical Conclaves",
-  },
-  {
-    period: "2023 / 2024",
-    role: "Coordinator",
-    entity: "Kathmandu University Youth Red Cross Circle (KUYRCC)",
-    domain: "Institutional Blood Donation & Humanitarian Drives",
-  },
-   {
-    period: "2024",
-    role: "Volunteer",
-    entity: "Kathmandu University",
-    domain: "Volunteered in Roshi River Flood areas for donation, and data collection",
-  },
-  {
-    period: "2024",
-    role: "Vice Coordinator",
-    entity: "Sankalpa’24 National Engineering Event",
-    domain: "National Symposia & Inter-University Technical Logistics",
-  },
-  {
-    period: "2022 / 2023",
-    role: "Executive Member",
-    entity: "Kathmandu University Civil Engineering Club (KUCEC)",
-    domain: "Student Workshops & Technical Field Delegations",
-  },
-  {
-    period: "2023 / 2024",
-    role: "Treasurer",
-    entity: "Kathmandu University Indoor Games Club (KUIGC)",
-    domain: "Budget Allocation, Fiscal Audits & Athletic Operations",
-  },
-  {
-    period: "Technical Volunteer",
-    role: "International Delegate Support",
-    entity: "International Conference Surung-I",
-    domain: "Tunnels & Underground Structures Symposia",
-  },
-];
+const icons: Record<WorkIcon, React.ElementType> = {
+  building: Building2,
+  flask: FlaskConical,
+  hardhat: HardHat,
+  compass: DraftingCompass,
+};
 
 const Experience: React.FC = () => {
+  const { work, leadership, settings } = useContent();
+
   return (
     <section className="section page-top" id="experience">
       <div className="page-glow" aria-hidden="true" />
@@ -142,12 +38,13 @@ const Experience: React.FC = () => {
         </header>
 
         <div className="exp-grid">
-          {workList.map((item, idx) => {
-            const Icon = item.icon;
+          {work.map((item, idx) => {
+            const Icon = icons[item.icon] ?? Building2;
+            const thumb = imgSrc(item.thumbUrl, item.thumbFile, 600);
             return (
               <article
                 className={`exp-card spot ${item.isCurrent ? "exp-current" : ""} reveal-on-scroll delay-${(idx % 2 + 1) * 100}`}
-                key={idx}
+                key={`${item.company}-${idx}`}
               >
                 <div className="exp-main">
                   <div className="exp-top">
@@ -172,9 +69,9 @@ const Experience: React.FC = () => {
                   <p>{item.description}</p>
                 </div>
 
-                {item.thumbImg && (
-                  <div className={`exp-thumb ${item.isLogoThumb ? "exp-thumb-logo" : ""}`}>
-                    <img src={item.thumbImg} alt={item.company} />
+                {thumb && (
+                  <div className={`exp-thumb ${item.thumbIsLogo ? "exp-thumb-logo" : ""}`}>
+                    <img src={thumb} alt={item.company} />
                   </div>
                 )}
               </article>
@@ -183,11 +80,17 @@ const Experience: React.FC = () => {
         </div>
 
         <div className="cta-row reveal-on-scroll delay-200">
-          <a href="/prabin-resume.pdf" download="Prabin_Shah_CV.pdf" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+          <a
+            href={settings.resumeUrl || "/prabin-resume.pdf"}
+            download="Prabin_Shah_CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
             <Download size={16} />
             <span>Download Resume</span>
           </a>
-          <a href="mailto:prabinshah919@gmail.com" className="btn btn-ghost">
+          <a href={`mailto:${settings.email}`} className="btn btn-ghost">
             <Send size={16} />
             <span>Contact Me</span>
           </a>
@@ -206,8 +109,8 @@ const Experience: React.FC = () => {
           </header>
 
           <div className="lead-table">
-            {leadershipRecords.map((item, idx) => (
-              <div className={`lead-row spot reveal-on-scroll delay-${Math.min(idx % 4 + 1, 4) * 100}`} key={idx}>
+            {leadership.map((item, idx) => (
+              <div className={`lead-row spot reveal-on-scroll delay-${Math.min(idx % 4 + 1, 4) * 100}`} key={`${item.role}-${idx}`}>
                 <span className="lead-idx mono-label">{String(idx + 1).padStart(2, "0")}</span>
                 <span className="pill pill-mono lead-period">{item.period}</span>
                 <div className="lead-role">

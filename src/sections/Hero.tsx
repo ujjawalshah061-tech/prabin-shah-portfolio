@@ -1,26 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Download, Building, MapPin, GraduationCap } from "lucide-react";
-import prabinImg from "../assets/images/prabin-shah.png";
 import blueprintImg from "../assets/images/hero-blueprint.jpg";
-
-const roles = [
-  "Hydropower Designer",
-  "Structural Drafter",
-  "Founder & CEO",
-];
-
-const stats = [
-  { value: 5, decimals: 0, label: "Hydropower projects", suffix: "+" },
-  { value: 4, decimals: 0, label: "Industry roles", suffix: "" },
-  { value: 40, decimals: 0, label: "MW site exposure", suffix: "" },
-  { value: 6, decimals: 0, label: "Leadership posts", suffix: "+" },
-];
-
-const marquee = [
-  "Civil 3D", "AutoCAD", "HEC-RAS", "SAP 2000", "SW_DTM", "SW_Road", "Primavera",
-  "Hydropower Design", "BOQ Estimation",
-];
+import { useContent } from "../content/ContentContext";
+import { imgSrc } from "../content/images";
 
 function CountUp({ to, decimals, suffix }: { to: number; decimals: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -59,13 +42,19 @@ function CountUp({ to, decimals, suffix }: { to: number; decimals: number; suffi
   );
 }
 
+const cardIcons = [Building, GraduationCap];
+const cardClasses = ["fc-1", "fc-3"];
+
 const Hero: React.FC = () => {
+  const { settings } = useContent();
+  const roles = settings.heroRoles.length > 0 ? settings.heroRoles : [""];
   const [roleIdx, setRoleIdx] = useState(0);
 
   useEffect(() => {
+    if (roles.length < 2) return;
     const id = setInterval(() => setRoleIdx((i) => (i + 1) % roles.length), 2600);
     return () => clearInterval(id);
-  }, []);
+  }, [roles.length]);
 
   const onTilt = (e: React.PointerEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -78,6 +67,9 @@ const Hero: React.FC = () => {
     e.currentTarget.style.setProperty("--rx", "0deg");
     e.currentTarget.style.setProperty("--ry", "0deg");
   };
+
+  const portrait = imgSrc(settings.portraitUrl, "prabin-shah.png", 1100);
+  const marquee = settings.marquee;
 
   return (
     <section className="hero" id="hero">
@@ -93,28 +85,25 @@ const Hero: React.FC = () => {
       <div className="hero-inner">
         <div className="hero-copy">
           <span className="chip chip-live reveal-on-scroll animate-in">
-            <span className="live-dot" /> Available for hydropower &amp; structural projects
+            <span className="live-dot" /> {settings.availability}
           </span>
 
-          <p className="mono-label hero-hello">Hello, I&apos;m</p>
+          <p className="mono-label hero-hello">{settings.heroGreeting}</p>
           <h1 className="hero-title">
-            <span className="hero-title-line">Prabin</span>
+            <span className="hero-title-line">{settings.firstName}</span>
             <span className="hero-title-line hero-title-grad">
-              Shah<i>.</i>
+              {settings.lastName}
+              <i>.</i>
             </span>
           </h1>
 
           <div className="hero-role" aria-live="polite">
-                        <span key={roleIdx} className="hero-role-word">
-              {roles[roleIdx]}
+            <span key={roleIdx} className="hero-role-word">
+              {roles[roleIdx % roles.length]}
             </span>
           </div>
 
-          <p className="hero-desc">
-            Civil Engineering professional &amp; researcher from Kathmandu University, specializing in
-            hydropower design, structural drafting and sustainable
-            infrastructure — based in Lalitpur, Nepal.
-          </p>
+          <p className="hero-desc">{settings.heroDescription}</p>
 
           <div className="hero-cta">
             <Link to="/contact" className="btn btn-primary">
@@ -124,51 +113,58 @@ const Hero: React.FC = () => {
             <Link to="/experience" className="btn btn-ghost">
               <span>See My Work</span>
             </Link>
-            <a href="/prabin-resume.pdf" download="Prabin_Shah_CV.pdf" className="btn btn-icon" title="Download resume">
+            <a
+              href={settings.resumeUrl || "/prabin-resume.pdf"}
+              download="Prabin_Shah_CV.pdf"
+              className="btn btn-icon"
+              title="Download resume"
+            >
               <Download size={16} />
             </a>
           </div>
         </div>
 
         <div className="hero-visual">
-          <div
-            className="hero-stage"
-            onPointerMove={onTilt}
-            onPointerLeave={resetTilt}
-          >
+          <div className="hero-stage" onPointerMove={onTilt} onPointerLeave={resetTilt}>
             <div className="hero-ring hero-ring-1" />
             <div className="hero-ring hero-ring-2" />
             <div className="hero-halo" />
             <div className="hero-portrait-clip">
-              <img src={prabinImg} alt="Prabin Shah - Civil & Hydropower Engineer" className="hero-portrait" />
+              <img
+                src={portrait}
+                alt={`${settings.firstName} ${settings.lastName}`}
+                className="hero-portrait"
+              />
             </div>
 
-            <div className="float-card fc-1">
-              <span className="fc-ico"><Building size={15} /></span>
-              <span>
-                <b>CEO &amp; Founder</b>
-                <small>Code &amp; Concrete Construction</small>
-              </span>
-            </div>
-            <div className="float-card fc-3">
-              <span className="fc-ico"><GraduationCap size={15} /></span>
-              <span>
-                <b>M.Sc. Construction Mgmt</b>
-                <small>Nepal Engineering College</small>
-              </span>
-            </div>
-            <div className="float-pin">
-              <MapPin size={13} /> Lalitpur, NP
-            </div>
+            {settings.heroCards.slice(0, 2).map((card, i) => {
+              const Icon = cardIcons[i % cardIcons.length];
+              return (
+                <div className={`float-card ${cardClasses[i % cardClasses.length]}`} key={`${card.title}-${i}`}>
+                  <span className="fc-ico">
+                    <Icon size={15} />
+                  </span>
+                  <span>
+                    <b>{card.title}</b>
+                    <small>{card.subtitle}</small>
+                  </span>
+                </div>
+              );
+            })}
+            {settings.locationPin && (
+              <div className="float-pin">
+                <MapPin size={13} /> {settings.locationPin}
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="hero-stats">
-        {stats.map((s) => (
-          <div className="hero-stat" key={s.label}>
+        {settings.heroStats.map((s, i) => (
+          <div className="hero-stat" key={`${s.label}-${i}`}>
             <b>
-              <CountUp to={s.value} decimals={s.decimals} suffix={s.suffix} />
+              <CountUp to={s.value} decimals={s.decimals ?? 0} suffix={s.suffix ?? ""} />
             </b>
             <span>{s.label}</span>
           </div>

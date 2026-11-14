@@ -1,56 +1,13 @@
 import React from "react";
 import { Award, Mic2, GraduationCap, Building2 } from "lucide-react";
+import { useContent } from "../content/ContentContext";
+import { imgSrc } from "../content/images";
 
-import convocationImg from "../assets/images/convocation.jpg";
-import kuSpeechImg from "../assets/images/ku-speech.jpg";
-import kuPodiumImg from "../assets/images/ku-podium.jpg";
-import campusPortraitImg from "../assets/images/campus-portrait.jpg";
-
-interface MilestoneItem {
-  id: number;
-  tag: string;
-  title: string;
-  caption: string;
-  image: string;
-  icon: React.ReactNode;
-}
-
-const milestoneData: MilestoneItem[] = [
-  {
-    id: 1,
-    tag: "ACADEMIC CONVOCATION",
-    title: "B.E. Civil Engineering Conferred",
-    caption: "Receiving Bachelor's degree from Kathmandu University School of Engineering.",
-    image: convocationImg,
-    icon: <GraduationCap size={14} />,
-  },
-  {
-    id: 2,
-    tag: "CIVIL ENGINEERING LEADERSHIP",
-    title: "KU Civil Club Keynote & Address",
-    caption: "Addressing students and faculty at Kathmandu University Civil Engineering Club (KUCEC) official assembly.",
-    image: kuSpeechImg,
-    icon: <Mic2 size={14} />,
-  },
-  {
-    id: 3,
-    tag: "RESEARCH & INSTITUTIONAL ADDRESS",
-    title: "Academic Colloquium Presentation",
-    caption: "Delivering engineering insights and project presentations at the Kathmandu University main auditorium.",
-    image: kuPodiumImg,
-    icon: <Award size={14} />,
-  },
-  {
-    id: 4,
-    tag: "PROFESSIONAL PROFILE",
-    title: "KU School of Engineering Premise",
-    caption: "Academic journey representation at Kathmandu University, transitioning from student researcher to industry founder.",
-    image: campusPortraitImg,
-    icon: <Building2 size={14} />,
-  },
-];
+const icons = [GraduationCap, Mic2, Award, Building2];
 
 const Milestones: React.FC = () => {
+  const { milestones } = useContent();
+
   return (
     <section className="section milestones" id="milestones">
       <div className="wrap">
@@ -66,24 +23,33 @@ const Milestones: React.FC = () => {
         </header>
 
         <div className="ms-grid">
-          {milestoneData.map((item, idx) => (
-            <article
-              key={item.id}
-              className={`ms-card ms-${item.id} spot reveal-on-scroll delay-${(idx % 2) * 100 + 100}`}
-            >
-              <img src={item.image} alt={item.title} className="ms-img" loading="lazy" />
-              <div className="ms-shade" />
-              <span className="ms-index">{String(item.id).padStart(2, "0")}</span>
-              <div className="ms-body">
-                <span className="chip chip-glass">
-                  {item.icon}
-                  {item.tag}
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.caption}</p>
-              </div>
-            </article>
-          ))}
+          {milestones.map((item, idx) => {
+            const Icon = icons[idx % icons.length];
+            return (
+              <article
+                key={`${item.title}-${idx}`}
+                className={`ms-card ms-${(idx % 4) + 1} spot reveal-on-scroll delay-${(idx % 2) * 100 + 100}`}
+              >
+                <img
+                  src={imgSrc(item.imageUrl, item.imageFile)}
+                  alt={item.title}
+                  className="ms-img"
+                  style={item.focus ? { objectPosition: item.focus } : undefined}
+                  loading="lazy"
+                />
+                <div className="ms-shade" />
+                <span className="ms-index">{String(idx + 1).padStart(2, "0")}</span>
+                <div className="ms-body">
+                  <span className="chip chip-glass">
+                    <Icon size={14} />
+                    {item.tag}
+                  </span>
+                  <h3>{item.title}</h3>
+                  <p>{item.caption}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

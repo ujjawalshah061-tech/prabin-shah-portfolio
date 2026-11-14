@@ -1,32 +1,14 @@
 import React from "react";
 import { Layers, FileSpreadsheet, Globe2 } from "lucide-react";
-import helmetDesk from "../assets/images/side-helmet-desk.jpg";
+import { useContent } from "../content/ContentContext";
+import { imgSrc } from "../content/images";
 
-const skillCategories = [
-  {
-    title: "Engineering & Design Software",
-    subtitle: "Hydraulic, Highway & Structural CAD",
-    icon: Layers,
-    accent: "amber",
-    skills: ["Civil 3D", "AutoCAD", "SW_DTM", "SW_Road", "SAP 2000", "HEC-RAS"],
-  },
-  {
-    title: "Computation & Project Management",
-    subtitle: "BOQ, Quantity Estimation & Technical Reports",
-    icon: FileSpreadsheet,
-    accent: "cyan",
-    skills: ["Primavera", "Microsoft Excel (Advanced)", "Microsoft Word", "Microsoft PowerPoint"],
-  },
-  {
-    title: "Languages Spoken",
-    subtitle: "Professional & Regional Communication",
-    icon: Globe2,
-    accent: "violet",
-    skills: ["English (Fluent)", "Nepali (Native)", "Maithili (Native)", "Hindi (Fluent)"],
-  },
-];
+const accentIcons = { amber: Layers, cyan: FileSpreadsheet, violet: Globe2 };
 
 const Skills: React.FC = () => {
+  const { skills, settings } = useContent();
+  const photo = imgSrc(settings.toolkitImageUrl, "side-helmet-desk.jpg", 1000);
+
   return (
     <section className="section skills" id="skills">
       <div className="wrap">
@@ -43,21 +25,21 @@ const Skills: React.FC = () => {
 
         <div className="skills-layout">
           <div className="skills-photo spot reveal-on-scroll">
-            <img src={helmetDesk} alt="Hard hat, drafting compass and blueprints on a site desk" />
+            <img src={photo} alt="Hard hat, drafting compass and blueprints on a site desk" />
             <div className="skills-photo-shade" />
             <div className="skills-photo-cap">
               <span className="mono-label">The toolkit</span>
-              <b>Drafting precision, field discipline.</b>
+              <b>{settings.toolkitCaption}</b>
             </div>
           </div>
 
           <div className="skills-stack">
-            {skillCategories.map((cat, index) => {
-              const CatIcon = cat.icon;
+            {skills.map((cat, index) => {
+              const CatIcon = accentIcons[cat.accent] ?? Layers;
               return (
                 <div
-                  className={`skill-card spot accent-${cat.accent} reveal-on-scroll delay-${(index + 1) * 100}`}
-                  key={cat.title}
+                  className={`skill-card spot accent-${cat.accent} reveal-on-scroll delay-${Math.min(index + 1, 4) * 100}`}
+                  key={`${cat.title}-${index}`}
                 >
                   <div className="skill-head">
                     <span className="skill-ico">
@@ -69,8 +51,8 @@ const Skills: React.FC = () => {
                     </div>
                   </div>
                   <div className="skill-pills">
-                    {cat.skills.map((s) => (
-                      <span className="skill-pill" key={s}>
+                    {cat.skills.map((s, i) => (
+                      <span className="skill-pill" key={`${s}-${i}`}>
                         {s}
                       </span>
                     ))}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./sections/Footer";
@@ -10,6 +10,10 @@ import EngineeringGallery from "./sections/EngineeringGallery";
 import Experience from "./sections/Experience";
 import Project from "./sections/Project";
 import Contact from "./sections/Contact";
+import { ContentProvider } from "./content/ContentContext";
+
+// The admin screen is large, so it is only downloaded when someone opens /studio.
+const StudioPage = lazy(() => import("./studio/StudioPage"));
 
 function ScrollHandler() {
   const { pathname, hash } = useLocation();
@@ -95,15 +99,20 @@ function AppContent() {
   useGlobalFx();
 
   const hideFooterRoutes = ["/contact", "/experience", "/service", "/services", "/project", "/projects"];
-  const showFooter = !hideFooterRoutes.includes(location.pathname);
+  const isStudio = location.pathname.startsWith("/studio");
+  const showFooter = !isStudio && !hideFooterRoutes.includes(location.pathname);
 
   return (
     <div className="portfolio-app-root">
-      <div className="fx-progress" aria-hidden="true" />
-      <div className="fx-cursor" aria-hidden="true" />
-      <div className="fx-grain" aria-hidden="true" />
+      {!isStudio && (
+        <>
+          <div className="fx-progress" aria-hidden="true" />
+          <div className="fx-cursor" aria-hidden="true" />
+          <div className="fx-grain" aria-hidden="true" />
+        </>
+      )}
       <ScrollHandler />
-      <Navbar />
+      {!isStudio && <Navbar />}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -112,6 +121,14 @@ function AppContent() {
         <Route path="/project" element={<Project />} />
         <Route path="/projects" element={<Project />} />
         <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/studio/*"
+          element={
+            <Suspense fallback={<div className="studio-setup"><p>Loading admin…</p></div>}>
+              <StudioPage />
+            </Suspense>
+          }
+        />
       </Routes>
 
       {showFooter && <Footer />}
@@ -122,7 +139,9 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <ContentProvider>
+        <AppContent />
+      </ContentProvider>
     </Router>
   );
 }

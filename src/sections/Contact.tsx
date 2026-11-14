@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Phone, Send, ExternalLink, MessageCircle } from "lucide-react";
+import { useContent } from "../content/ContentContext";
 import { validateEmail, validateMessage, validateName, validatePhone } from "../../shared/validation";
 
 type Field = "name" | "phone" | "email" | "message";
@@ -14,6 +15,7 @@ const validators: Record<Field, (v: string) => string> = {
 const fieldOrder: Field[] = ["name", "phone", "email", "message"];
 
 const Contact: React.FC = () => {
+  const { settings } = useContent();
   const empty = { name: "", phone: "", email: "", message: "", website: "" };
   const [formData, setFormData] = useState(empty);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -70,7 +72,7 @@ const Contact: React.FC = () => {
       setStatus("error");
       setFeedback(
         (err instanceof Error ? err.message : "Something went wrong.") +
-          " You can also email prabinshah919@gmail.com or message me on WhatsApp."
+          ` You can also email ${settings.email} or message me on WhatsApp.`
       );
     }
   };
@@ -206,7 +208,7 @@ const Contact: React.FC = () => {
             <div className="map-frame">
               <iframe
                 title="Prabin Shah Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113060.19830589574!2d85.25552984570075!3d27.67138243162791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sLalitpur!5e0!3m2!1sen!2snp!4v1700000000000!5m2!1sen!2snp"
+                src={settings.mapEmbedUrl}
                 width="100%"
                 height="240"
                 style={{ border: 0 }}
@@ -216,11 +218,11 @@ const Contact: React.FC = () => {
             </div>
 
             <div className="cta-row cta-row-left">
-              <a href="https://maps.app.goo.gl/wyBpvtVPm2QKJYzZ8?g_st=aw" target="_blank" rel="noreferrer" className="btn btn-ghost">
+              <a href={settings.mapLink} target="_blank" rel="noreferrer" className="btn btn-ghost">
                 <span>Open in Google Maps</span>
                 <ExternalLink size={14} />
               </a>
-              <a href="tel:+9779812186293" className="btn btn-ghost">
+              <a href={`tel:${settings.phone}`} className="btn btn-ghost">
                 <span>Call now</span>
                 <Phone size={14} />
               </a>
@@ -229,15 +231,15 @@ const Contact: React.FC = () => {
             <div className="meta-list">
               <div className="meta spot">
                 <span className="mono-label">Email</span>
-                <a href="mailto:prabinshah919@gmail.com">prabinshah919@gmail.com</a>
+                <a href={`mailto:${settings.email}`}>{settings.email}</a>
               </div>
               <div className="meta spot">
                 <span className="mono-label">Phone / WhatsApp</span>
-                <a href="https://wa.me/9779812186293">+977 981-2186293</a>
+                <a href={`https://wa.me/${settings.whatsapp}`}>{settings.phoneDisplay}</a>
               </div>
               <div className="meta spot">
                 <span className="mono-label">Works at</span>
-                <span>Hydro Tunneling and Research Pvt. Ltd. · Lalitpur, Nepal</span>
+                <span>{settings.worksAt}</span>
               </div>
             </div>
           </div>
@@ -245,15 +247,15 @@ const Contact: React.FC = () => {
       </div>
 
       <div className="dock">
-        <a href="tel:+9779812186293">
+        <a href={`tel:${settings.phone}`}>
           <Phone size={15} />
           <span>Call</span>
         </a>
-        <a href="https://wa.me/9779812186293" target="_blank" rel="noreferrer">
+        <a href={`https://wa.me/${settings.whatsapp}`} target="_blank" rel="noreferrer">
           <MessageCircle size={15} />
           <span>WhatsApp</span>
         </a>
-        <a href="mailto:prabinshah919@gmail.com">
+        <a href={`mailto:${settings.email}`}>
           <Mail size={15} />
           <span>Message</span>
         </a>

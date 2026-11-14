@@ -10,16 +10,20 @@
     "preview": "vite preview",
     "dev:web": "vite",
     "server": "node server/index.js",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "seed": "node scripts/seed.ts"
   },
   "dependencies": {
+    "@sanity/client": "^8.16.0",
     "dotenv": "^18.0.9",
     "express": "^5.3.0",
     "lucide-react": "^1.61.0",
     "nodemailer": "^10.3.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router-dom": "^7.18.4"
+    "react-router-dom": "^7.18.4",
+    "sanity": "^6.23.0",
+    "styled-components": "^6.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
