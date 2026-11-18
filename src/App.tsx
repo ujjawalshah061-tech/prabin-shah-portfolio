@@ -10,7 +10,8 @@ import EngineeringGallery from "./sections/EngineeringGallery";
 import Experience from "./sections/Experience";
 import Project from "./sections/Project";
 import Contact from "./sections/Contact";
-import { ContentProvider } from "./content/ContentContext";
+import { ContentProvider, useContent } from "./content/ContentContext";
+import { useSeo } from "./seo";
 
 // The admin screen is large, so it is only downloaded when someone opens /studio.
 const StudioPage = lazy(() => import("./studio/StudioPage"));
@@ -97,6 +98,8 @@ function AppContent() {
   const location = useLocation();
   useScrollReveal();
   useGlobalFx();
+  const { settings } = useContent();
+  useSeo(`${settings.firstName} ${settings.lastName}`);
 
   const hideFooterRoutes = ["/contact", "/experience", "/service", "/services", "/project", "/projects"];
   const isStudio = location.pathname.startsWith("/studio");
